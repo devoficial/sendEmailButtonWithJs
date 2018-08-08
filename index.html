@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cssandjsch1</title>
+</head>
+<style>
+    body{
+        background:#87ade5;
+    }
+    #box{
+        width:50%;
+        margin: 100px auto;
+        text-align: center;
+    }
+    #hero,
+    #success{
+        padding: 12px;
+        border: none;
+        box-shadow: 2px 2px 2px 1px #595a5b;
+        font-size: 1rem;
+        font-weight:bolder;
+        cursor: pointer;
+    }
+    #hero{
+        border-radius: 8px;
+        background: #fff;
+        color: #17a008;
+    }
+    .radius{
+        border-radius:0 8px 8px 0;
+        background-color: #595a5b;
+        color: #fff;
+    }
+    #send{
+        display: none;
+    }
+    input{
+        font-size: 1rem;
+        padding: 10px;
+        font-weight:bold;
+        color:#17a008;
+        border: none;
+        border-radius:12px 0 0 12px;
+        animation: getInput 0.5s ease-out;
+    }
+    button:focus,
+    input:focus{
+        outline: none;
+    }
+    .sendMail{
+        animation: sendInput 0.4s ease-out;
+    }
+
+    @keyframes getInput{
+        0%{
+            width:25px;
+        }
+        
+        100%{
+            width: 200px;
+            
+        }
+
+    }
+    @keyframes sendInput{
+        50%{
+            opacity: 0.5;
+        }
+        100%{
+            font-size: 0rem;
+            opacity: 0;
+        }
+    }
+</style>
+<body>
+    <div id="box">
+        <button id="hero">Notify me!</button>
+        <span id="send"><input id="write" type="email" value="Type your e-mail"><button id="success">submit</button></span>
+    </div>
+    <script>
+        const hero = document.querySelector("#hero");
+        const box = document.querySelector("#box");
+        const send = document.querySelector("#send");
+        const input = document.querySelector("#write");
+        const success = document.querySelector("#success");
+
+        hero.addEventListener("click",viewInput);
+        success.addEventListener("click",hideInput);
+
+        function viewInput(e){
+            hero.style.display = "none";
+            send.style.display= "block"
+            success.classList.add("radius");
+            input.addEventListener("focus", (e) => input.value = "");
+        }
+        function hideInput(e){
+            input.classList.add("sendMail");
+            success.classList.add("sendMail");
+            setTimeout(() => box.removeChild(send),300 )            
+            setTimeout( () => { 
+                hero.style.display = "";
+                hero.textContent = "Thank You!"
+                hero.setAttribute("disabled","true");
+            },350);
+                  
+        }
+
+    </script>    
+</body>
+</html>
